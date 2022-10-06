@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func suma(a int, b int) int {
 	return a + b
@@ -80,6 +83,44 @@ func tiposPropios() {
 	persona.presentacion()
 }
 
+func convertirTipos() {
+	var todoOkString string = "true"
+	fmt.Println(todoOkString)
+	var todoOkBool bool
+
+	todoOkBool, _ = strconv.ParseBool(todoOkString)
+	//parseBool nos retorna el booleano y un error que lo tiramos al _
+	fmt.Println(todoOkBool)
+
+	// de bool a string
+	todoOkString_2 := strconv.FormatBool(todoOkBool)
+	fmt.Println(todoOkString_2)
+}
+
+type Perro struct {
+	nombre          string
+	edad_anioActual [2]int
+}
+
+func tomarDatos() {
+	var perro Perro
+
+	fmt.Println("¿Cual es el nombre de tu perro?")
+	fmt.Scanf("%s\n", &perro.nombre)
+
+	fmt.Println("¿Que edad tiene?")
+	fmt.Scanf("%d\n", &perro.edad_anioActual[0])
+
+	fmt.Println("¿Que año es actualmente?")
+	fmt.Scanf("%d\n", &perro.edad_anioActual[1])
+
+	perro.mostrarDatos()
+}
+
+func (perro *Perro) mostrarDatos() {
+	fmt.Printf("Se llama %s , tiene %d años y estamos en el año %d", perro.nombre, perro.edad_anioActual[0], perro.edad_anioActual[1])
+}
+
 func main() {
 	//var txt string = "El resultado es "
 	//fmt.Println(txt, suma(5, 6))
@@ -88,5 +129,7 @@ func main() {
 	//tiposString("hola")
 	//animal()
 	//tipoArray()
-	tiposPropios()
+	//tiposPropios()
+	//convertirTipos()
+	tomarDatos()
 }

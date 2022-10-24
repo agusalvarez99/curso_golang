@@ -12,7 +12,10 @@ func main() {
 	//convertir()
 	//metodos()
 	//busqueda()
-	borrarEspacios()
+	//borrarEspacios()
+	//ejercicio1()
+	//ejercicio2()
+	ejercicio3()
 }
 
 func runes() {
@@ -74,4 +77,25 @@ func borrarEspacios() {
 
 	array := strings.Split(prueba, " ")
 	fmt.Println(array[1])
+}
+
+func ejercicio1() {
+	cadena := "perro de las praderas"
+	aparicion := strings.Index(cadena, "a")
+	fmt.Println(aparicion)
+}
+
+func ejercicio2() {
+	cadena := "los perros del barrio"
+	if strings.Contains(cadena, "lo") {
+		fmt.Println(strings.ToUpper(cadena))
+	} else {
+		fmt.Println(cadena)
+	}
+}
+
+func ejercicio3() {
+	cadena := "la mosca aparecio"
+	ult := strings.LastIndex(cadena, "a")
+	fmt.Println(ult)
 }

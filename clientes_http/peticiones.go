@@ -10,7 +10,9 @@ import (
 
 func main() {
 	//get()
-	post()
+	//post()
+	//put()
+	delete()
 }
 
 func get() {
@@ -67,6 +69,89 @@ func post() {
 		log.Fatalf("Error en peticion %v", err)
 	}
 	defer respuesta.Body.Close()
+	body, err := ioutil.ReadAll(respuesta.Body)
+	if err != nil {
+		log.Fatalf("Error %v", err)
+	}
+
+	res := string(body)
+	log.Printf("Response code: %d", respuesta.StatusCode)
+	log.Printf("Headers: '%q'", respuesta.Header)
+	contentType := respuesta.Header.Get("Content-Type")
+	log.Printf("Content-type: '%s'", contentType)
+	log.Printf("Response body: '%s'", res)
+}
+
+func put() {
+	clienteHttp := &http.Client{}
+	url := "https://httpbin.org/put"
+
+	type Animal struct {
+		Nombre  string
+		Especie string
+	}
+	ani := Animal{
+		Nombre:  "Miru",
+		Especie: "Perro",
+	}
+
+	aniJson, err := json.Marshal(ani)
+	if err != nil {
+		log.Fatalf("Error con el JSON %v", err)
+	}
+
+	peticion, err := http.NewRequest("PUT", url, bytes.NewBuffer(aniJson))
+	if err != nil {
+		log.Fatalf("Error en peticion %v", err)
+	}
+
+	peticion.Header.Add("Content-Type", "application/json")
+	respuesta, err := clienteHttp.Do(peticion)
+	if err != nil {
+		log.Fatalf("Error en peticion %v", err)
+	}
+	defer respuesta.Body.Close()
+	body, err := ioutil.ReadAll(respuesta.Body)
+	if err != nil {
+		log.Fatalf("Error %v", err)
+	}
+
+	res := string(body)
+	log.Printf("Response code: %d", respuesta.StatusCode)
+	log.Printf("Headers: '%q'", respuesta.Header)
+	contentType := respuesta.Header.Get("Content-Type")
+	log.Printf("Content-type: '%s'", contentType)
+	log.Printf("Response body: '%s'", res)
+}
+
+func delete() {
+	clienteHttp := &http.Client{}
+	url := "https://httpbin.org/delete"
+
+	type Animal struct {
+		Nombre  string
+		Especie string
+	}
+	ani := Animal{
+		Nombre:  "Miru",
+		Especie: "Perro",
+	}
+
+	aniJson, err := json.Marshal(ani)
+	if err != nil {
+		log.Fatalf("Error con el JSON %v", err)
+	}
+	peticion, err := http.NewRequest("DELETE", url, bytes.NewBuffer(aniJson))
+	if err != nil {
+		log.Fatalf("Error en peticion %v", err)
+	}
+	peticion.Header.Add("Content-Type", "application/json")
+	respuesta, err := clienteHttp.Do(peticion)
+	if err != nil {
+		log.Fatalf("Error en peticion %v", err)
+	}
+	defer respuesta.Body.Close()
+
 	body, err := ioutil.ReadAll(respuesta.Body)
 	if err != nil {
 		log.Fatalf("Error %v", err)

@@ -8,13 +8,17 @@ import (
 func main() {
 	var n int
 	fmt.Scan(&n)
-	array := make([]int, n)
-	fmt.Scan(&array[0], &array[1], &array[2], &array[3], &array[4])
-	sort.Ints(array)
-
+	//validar que sea impar
 	if n%2 == 0 {
-		fmt.Println((array[n/2-1] + array[n/2]) / 2)
+		fmt.Println("El numero ingresado debe ser impar!")
 	} else {
-		fmt.Println(array[n/2])
+		array := make([]int, n)
+		//no se cuantos elementos son
+		for i := 0; i < n; i++ {
+			fmt.Scan(&array[i])
+		}
+		sort.Ints(array)
+		median := array[n/2]
+		fmt.Println(median)
 	}
 }
